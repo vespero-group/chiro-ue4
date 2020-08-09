@@ -1,0 +1,33 @@
+name: Build GitHub Pages (mkdocs)
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+
+jobs:
+  main:
+    name: Build GitHub Pages with mkdocs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.8.5'
+
+      - name: Install mkdocs
+        run: |
+          mkdir python-mkdocs-venv;
+          python -m venv python-mkdocs-venv;
+          source python-mkdocs-venv/bin/activate;
+          pip install -U mkdocs;
+
+      - name: Build the GitHub pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          source python-mkdocs-venv/bin/activate;
+          cd documentation;
+          mkdocs gh-deploy;

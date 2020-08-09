@@ -1,0 +1,40 @@
+name: Release Build
+
+on:
+  push:
+    branches:
+      - 'release/*'
+
+jobs:
+  main:
+    name: Build the release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Define the version
+        id: version
+        run: |
+          VERSION=$(echo "${{ github.ref }}" | python -c 'import sys; a=sys.stdin.read().strip(); print(a.split("/")[-1])')
+          echo "##[set-output name=version;]$VERSION"
+
+      - name: Prepare the filesystem structure
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mv ./addon/* .;
+          rm -rf README.md documentation addon;
+          git config --global user.name "GitHub Action"
+          git add .;
+          git commit -m 'Release ${{ steps.version.outputs.version }}';
+          git tag ${{ steps.version.outputs.version }};
+          git push origin ${{ github.ref }} --tags
+
+      - name: Create Release
+        id: create-release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.version.outputs.version }}
+          release_name: Release ${{ steps.version.outputs.version }}

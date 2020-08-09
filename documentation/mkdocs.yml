@@ -1,0 +1,27 @@
+theme: readthedocs
+site_name: Chiro (UE4 Mannequin)
+repo_url: https://github.org/vespero-group/chiro-ue4
+google_analytics: ['UA-174942804-1', 'vespero-group.github.io']
+
+nav:
+    - 'index.md'
+    - 'Getting Started':
+      - 'getting-started.md'
+      - 'installation.md'
+    - 'How To': 
+      - 'Skinning': 'how-to/leah.md'
+      - 'Mixamo Re-Skin': 'how-to/mixamo.md'
+      - 'UE4 Retargeting': 'how-to/ue4-retargeting.md'
+    - 'Tools Overview':
+      - 'Add Armature': 'add-armature.md'
+      - 'Add Mesh': 'add-mesh.md'
+      - 'Add Skeletal Mesh': 'add-skeletal-mesh.md'
+      - 'Apply Pose to Mesh & as Rest': 'apply-pose-to-mesh.md'
+      - 'Edit Armature': 'edit-armature.md'
+      - 'Export FBX': 'export-fbx.md'
+      - 'Re-Pose': 're-pose.md'
+      - 'Select Bones': 'select-bone-group.md'
+
+markdown_extensions:
+  - admonition
+  - toc
