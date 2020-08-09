@@ -28,6 +28,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          git lfs fetch;
           source python-mkdocs-venv/bin/activate;
           cd documentation;
           mkdocs gh-deploy;
