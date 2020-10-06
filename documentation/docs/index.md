@@ -68,6 +68,12 @@ If you want to support our cause, you could
   - Tell others about the add-on and what it does
 
 
+## Want to buy us coffee or donate for the cause?
+
+  - [Ko-fi](https://ko-fi.com/vesperogroup) (less commission)
+  - [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=studio%40vespero.org&currency_code=USD)
+
+
 ## Good luck!
 
 We wish this project can serve you well, creative person. Go, make the world a little better!

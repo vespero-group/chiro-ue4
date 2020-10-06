@@ -17,4 +17,41 @@ with Unreal Engine 4 Mannequin armature.
 
 ---
 
-See the [documentation](https://vespero-group.github.io/chiro-ue4/).
+## Who is it for
+
+ - **3D Artists**, who want to skin their characters with the Mannequin skeleton
+ - **Indie Game Developers**, who want an easy way to swap an armature of a mesh with the Mannequin skeleton
+
+
+## Why we need it
+
+ - animation created for Mannequin may be reused
+ - blueprints created for Mannequin may be reused
+ - Mannequin skeleton may be reused
+
+
+## What it gives you
+
+ - Free software (as in freedom)
+ - Skinning with Mannequin compatible armatures
+ - FBX export made easy (with correct scale)
+ - Mixamo to Mannequin skeleton transformations automation
+ - A bunch of automations
+
+
+## What it does not do
+
+The primary goal of this add-on is to make
+[Skinning](https://docs.blender.org/manual/en/latest/animation/armatures/skinning/introduction.html) easy.
+If you need to animate your characters, you should consider using EpicGames Blender Tools for that (e.g. Unreal to Rigify).
+
+
+## Blender compatibility
+
+Requires **2.8x**  
+Tested with **2.83 LTS**
+
+
+## Documentation
+
+Read more (including tutorials) in the [documentation](https://vespero-group.github.io/chiro-ue4/).
