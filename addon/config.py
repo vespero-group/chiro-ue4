@@ -1,13 +1,6 @@
 import bpy
 
 
-ADVANCED_MODE = True
-
-
-def is_advanced_mode():
-    return ADVANCED_MODE
-
-
 class Config(bpy.types.AddonPreferences):
     bl_idname = __package__
 
