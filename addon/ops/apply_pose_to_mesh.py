@@ -67,6 +67,4 @@ class ApplyPoseToMesh(OperatorMixin):
                     )
 
                     if len(the_copy):
-                        bpy.ops.object.modifier_apply(
-                            apply_as="DATA", modifier=the_copy[-1].name
-                        )
+                        bpy.ops.object.modifier_apply(modifier=the_copy[-1].name)

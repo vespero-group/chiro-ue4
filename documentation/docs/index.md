@@ -44,8 +44,8 @@ If you need to animate your characters, you should consider using EpicGames Blen
 
 ## Blender compatibility
 
-Requires **2.8x**  
-Tested with **2.83 LTS**
+Requires **2.8x** or **2.9x**  
+Tested with **2.83 LTS** and **2.90**
 
 
 ## Found a bug?

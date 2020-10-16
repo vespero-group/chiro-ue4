@@ -3,10 +3,10 @@
 User interface panel implementations
 """
 
-from .export import ExportPanel
+from .developer import DeveloperPanel
 
 
-EXPORT = [ExportPanel]
+EXPORT = [DeveloperPanel]
 
 
 def register():

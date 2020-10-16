@@ -14,13 +14,18 @@ from .ops import (
     register as register_ops,
     unregister as unregister_ops,
 )
+from .tests import (
+    EXPORT as EXPORT_TESTS,
+    register as register_tests,
+    unregister as unregister_tests,
+)
 from .config import Config
 
 
 _COMPONENTS = [Config]
 _COMPONENTS.extend(EXPORT_OPS)
 _COMPONENTS.extend(EXPORT_UI)
-
+_COMPONENTS.extend(EXPORT_TESTS)
 
 def register():
     for component in _COMPONENTS:
@@ -28,6 +33,7 @@ def register():
 
     register_ops()
     register_ui()
+    register_tests()
 
 
 def unregister():
@@ -36,3 +42,4 @@ def unregister():
 
     unregister_ui()
     unregister_ops()
+    unregister_tests()
