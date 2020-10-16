@@ -22,10 +22,20 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          git config --global user.name "GitHub Action"
+
+          git lfs fetch --all
+          git lfs ls-files -n | xargs git lfs untrack
+          git rm -f .gitattributes
+          git lfs uninstall
+
+          git add --renormalize .
+
           mv ./addon/* .;
           rm -rf README.md documentation addon;
-          git config --global user.name "GitHub Action"
-          git add .;
+
+          git add .
+
           git commit -m 'Release ${{ steps.version.outputs.version }}';
           git tag ${{ steps.version.outputs.version }};
           git push origin ${{ github.ref }} --tags
@@ -38,3 +48,20 @@ jobs:
         with:
           tag_name: ${{ steps.version.outputs.version }}
           release_name: Release ${{ steps.version.outputs.version }}
+
+      - name: Package the release
+        id: package-the-release
+        run: |
+          rm -rf .git .gitignore .gitattributes .github .flake8
+          zip -9 -r "chiro-ue4-${{ steps.version.outputs.version }}.zip" .
+
+      - name: Upload the release
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: "${{ steps.create-release.outputs.upload_url }}"
+          asset_path: "./chiro-ue4-${{ steps.version.outputs.version }}.zip"
+          asset_name: "chiro-ue4-${{ steps.version.outputs.version }}.zip"
+          asset_content_type: application/zip
