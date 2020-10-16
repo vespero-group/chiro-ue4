@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Skinning - Chiro (UE4 Mannequin)</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Skinning";
+    var mkdocs_page_input_path = "how-to/leah.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-174942804-1', 'vespero-group.github.io');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Chiro (UE4 Mannequin)</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Getting Started</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../getting-started/">Getting Started</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">How To</span></p>
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Skinning</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#intro">Intro</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#1-add-armature">1. Add Armature</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2-scale-armature">2. Scale Armature</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3-adjust-pelvis-position">3. Adjust pelvis position</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#4-adjust-pelvis-tail">4. Adjust pelvis tail</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#5-adjust-spine_01">5. Adjust spine_01</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#6-adjust-spine_02">6. Adjust spine_02</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#7-adjust-neck-and-head">7. Adjust neck and head</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#8-adjust-clavicles">8. Adjust clavicles</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#9-left-arm">9. Left Arm</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#10-fingers">10. Fingers</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#11-left-leg">11. Left leg</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#12-adjust-the-right-side">12. Adjust the right side</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#13-apply-the-pose-as-rest-pose">13. Apply the pose as Rest Pose</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#14-parent-the-armature">14. Parent the armature</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#15-t-pose">15. T-Pose</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#16-apply-the-pose-to-mesh">16. Apply the pose to mesh</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#165-optional-snap-clavicles">16.5. (Optional) Snap clavicles</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#17-fix-bone-rolls">17. Fix bone rolls</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#18-fix-feet-rotation">18. Fix feet rotation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#19-a-pose">19. A-Pose</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#20-export-fbx">20. Export FBX</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../mixamo/">Mixamo Re-Skin</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../ue4-retargeting/">UE4 Retargeting</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Tools Overview</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../add-armature/">Add Armature</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../add-mesh/">Add Mesh</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../add-skeletal-mesh/">Add Skeletal Mesh</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../apply-pose-to-mesh/">Apply Pose to Mesh & as Rest</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../edit-armature/">Edit Armature</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../export-fbx/">Export FBX</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../re-pose/">Re-Pose</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../select-bone-group/">Select Bones</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Chiro (UE4 Mannequin)</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>How To &raquo;</li>
+        
+      
+    
+    <li>Skinning</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="skin-a-mesh-with-mannequin-armature">Skin a mesh with Mannequin armature</h1>
+<p>The article explains how to skin a humanoid character with a Mannequin-compatible armature (skeleton).
+That will allow reuse of Mannequin animations for the character via animation retargeting in Unreal Engine 4.</p>
+<div class="admonition disclaimer">
+<p class="admonition-title">Disclaimer</p>
+<p>This article purpose is to demonstrate the features of Chiro add-on for Blender.
+To achieve best results, you must do more than we cover in here.
+We do not correct weight paints nor set up morph targets. That is out of scope for this tutorial.</p>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#skin-a-mesh-with-mannequin-armature">Skin a mesh with Mannequin armature</a><ul>
+<li><a href="#intro">Intro</a></li>
+<li><a href="#1-add-armature">1. Add Armature</a></li>
+<li><a href="#2-scale-armature">2. Scale Armature</a></li>
+<li><a href="#3-adjust-pelvis-position">3. Adjust pelvis position</a></li>
+<li><a href="#4-adjust-pelvis-tail">4. Adjust pelvis tail</a></li>
+<li><a href="#5-adjust-spine_01">5. Adjust spine_01</a></li>
+<li><a href="#6-adjust-spine_02">6. Adjust spine_02</a></li>
+<li><a href="#7-adjust-neck-and-head">7. Adjust neck and head</a></li>
+<li><a href="#8-adjust-clavicles">8. Adjust clavicles</a></li>
+<li><a href="#9-left-arm">9. Left Arm</a></li>
+<li><a href="#10-fingers">10. Fingers</a></li>
+<li><a href="#11-left-leg">11. Left leg</a></li>
+<li><a href="#12-adjust-the-right-side">12. Adjust the right side</a></li>
+<li><a href="#13-apply-the-pose-as-rest-pose">13. Apply the pose as Rest Pose</a></li>
+<li><a href="#14-parent-the-armature">14. Parent the armature</a></li>
+<li><a href="#15-t-pose">15. T-Pose</a></li>
+<li><a href="#16-apply-the-pose-to-mesh">16. Apply the pose to mesh</a></li>
+<li><a href="#165-optional-snap-clavicles">16.5. (Optional) Snap clavicles</a></li>
+<li><a href="#17-fix-bone-rolls">17. Fix bone rolls</a></li>
+<li><a href="#18-fix-feet-rotation">18. Fix feet rotation</a></li>
+<li><a href="#19-a-pose">19. A-Pose</a></li>
+<li><a href="#20-export-fbx">20. Export FBX</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li><a href="#results">Results</a><ul>
+<li><a href="#third-person">Third person</a></li>
+<li><a href="#advanced-locomotion-system-v4">Advanced Locomotion System v4</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="intro">Intro</h2>
+<p>In this article we will skin a character mesh with a mannequin-compatible armature. </p>
+<p>The mesh proportions are not matching the Mannequin, so we will change the bones
+and later use retargeting manager in Unreal Engine 4 to make the animation work.
+The mesh does not have armature, vertex groups and weight paints.</p>
+<p>Here is the character we will be skinning</p>
+<video controls width="700">
+  <source src="../img/leah/intro-leah-overview.webm" type="video/webm">
+</video>
+
+<hr />
+<h2 id="1-add-armature">1. Add Armature</h2>
+<p>The first step is to add the armature we'll be working with. To do that, find the menu and
+the armature to the scene. It will be easier to work if we make it show up "In Front", so let's
+do it straight away.</p>
+<ol>
+<li><code>Add -&gt; Armature -&gt; Chiro (UE4 Mannequin) -&gt; A-Pose</code></li>
+<li><code>Armature sidebar -&gt; Viewport Display -&gt; In Front</code></li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>It does not matter if you start with the armature in A-Pose or T-Pose.<br />
+In this example we start with A-Pose merely because it's closer to the mesh posture.</p>
+</div>
+<video controls width="700">
+  <source src="../img/leah/step01-add-armature.webm" type="video/webm">
+</video>
+
+<hr />
+<h2 id="2-scale-armature">2. Scale Armature</h2>
+<p>Now we scale the armature so its spine length following the torso size accordingly.<br />
+Here are a couple guidelines you could follow to make it right</p>
+<ol>
+<li>pelvis root should be at the top of the groin</li>
+<li>clavicle bone tails should be just in the middle of the character shoulders</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you cannot find good alignment, then don't align clavicles, just make sure
+pelvis is in the correct position. In the following steps we will adjust all the bones one by one
+anyway, but it is important to begin with the pelvis in the right spot.</p>
+</div>
+<video controls width="700">
+  <source src="../img/leah/step02-scale-armature.webm" type="video/webm">
+</video>
+
+<hr />
+<h2 id="3-adjust-pelvis-position">3. Adjust pelvis position</h2>
+<p>Now we shall adjust the bone positions. However, pelvis is the root for all the other bones
+and it is <strong>important</strong> that we begin with it first.<br />
+To find the correct position for pelvis, you could follow these guidelines.</p>
+<ul>
+<li>front view: top of the groin, middle of the mesh</li>
+<li>side view: middle of the mesh, middle of glutes</li>
+<li>rear view: middle of glutes, middle of the mesh</li>
+</ul>
+<p>To make it easier, in this step we will move pelvis into a separate layer,
+so the other bones don't obscure the view. To do that, we are switching to the <code>Edit Mode</code>.
+Then, we return to the <code>Object Mode</code> and adjust the pelvis position by dragging the armature around.</p>
+<video controls width="700">
+  <source src="../img/leah/step03-adjust-pelvis.webm" type="video/webm">
+</video>
+
+<hr />
+<h2 id="4-adjust-pelvis-tail">4. Adjust pelvis tail</h2>
+<p>The rest of the bones we will adjust in <code>Pose mode</code>.<br />
+Now we are correcting <code>spine_01</code> position by following these guidelines</p>
+<ul>
+<li>front view: just below navel</li>
+<li>side view: middle of the mesh</li>
+<li>rear view: just above the pelvis</li>
+</ul>
+<p>Since the bones are connected, to adjust <code>spine_01</code> position we will update the <code>pelvis</code> bone instead.
+In <code>Pose Mode</code> we will rotate <code>pelvis</code> and increase its <code>Scale Y</code>.</p>
+<video controls width="700">
+  <source src="../img/leah/step04-adjust-spine01.webm" type="video/webm">
+</video>
+
+<hr />
+<h2 id="5-adjust-spine_01">5. Adjust spine_01</h2>
+<p>Same here. To adjust <code>spine_02</code> we will update <code>spine_01</code> in <code>Pose Mode</code>. Rotate the bone and
+update its <code>Scale Y</code> to change the bone length.<br />
+Here are the guidelines for <code>spine_02</code> adjustments</p>
+<ul>
+<li>front view: celiac plexus (aka solar plexus), just below the ribcage, top of the abdomen</li>
+<li>side view: middle of the mesh</li>
+</ul>
+<p>To do this, we will move the <code>spine_01</code> bone to the current layer via <code>Edit Mode</code></p>
+<video controls width="700">
+  <source src="../img/leah/step05-adjust-spine02.webm" type="video/webm">
+</video>
+
+<hr />
+<h2 id="6-adjust-spine_02">6. Adjust spine_02</h2>
+<p>Repeating the same proceduce to adjust <code>spine_03</code> position.<br />
+The guidelines</p>
+<ul>
+<li>front view: middle of the chest</li>
+<li>side view: middle of the mesh, below the bottom of armpit, following the shape of the mesh</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>To move the bone into current layer we're using shortcuts (<code>Shift-M</code> and <code>M</code>).
+If you're not comfortable with shortcuts, you could repeat the UI actions from the previous steps.
+The shortcuts are doing the same thing.</p>
+</div>
+<video controls width="700">
+  <source src="../img/leah/step06-adjust-spine03.webm" type="video/webm">
+</video>
+
+<hr />
+<h2 id="7-adjust-neck-and-head">7. Adjust neck and head</h2>
+<p>Repeating the procedure for <code>neck</code> and <code>head</code> bones.</p>
+<p><code>neck root</code> guidelines:</p>
+<ul>
+<li>front view: root of the neck, above clavicles</li>
+<li>side view: root of the neck, just above the shoulders</li>
+</ul>
+<p><code>neck tail</code> guidelines:</p>
+<ul>
+<li>side view: behind the jaw, below the ear</li>
+</ul>
+<p><code>head</code> guidelines:</p>
+<ul>
+<li>parallel to face</li>
+</ul>
+<video controls width="700">
+  <source src="../img/leah/step07-neck-head.webm" type="video/webm">
+</video>
+
+<hr />
+<h2 id="8-adjust-clavicles">8. Adjust clavicles</h2>
+<p>The clavicle bones are the most error prone in retargeting Mannequin animations.
+Most likely you won't be able to find the correct position for your character from the first try.
+The shoulders may look broken, or positioned weirdly. To mitigate that effect,
+find a correct spot for clavicle bone roots. Although, for now, we are going to leave it "as is".</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Later we may use the "auto-detection" provided by the addon via
+<a href="../../edit-armature/#snap-clavicles-to-mannequin-position">Snap clavicles to Mannequin position</a> transformation.
+It won't give you the best possible result, but it is "good enough" to begin with.</p>
+</div>
+<p>The guidelines</p>
+<ul>
+<li>turn on X-mirror</li>
+<li>do not change clavicle root position</li>
+<li>clavicle tail should be placed in the middle of the shoulder joint</li>
+</ul>
+<video controls width="700">
+  <source src="../img/leah/step08-clavicles.webm" type="video/webm">
+</video>
+
+<hr />
+<h2 id="9-left-arm">9. Left Arm</h2>
+<p>Following the procedure, we're leaving X-mirror turned on and update the left arm bones.<br />
+Here are some simple guidelines for that</p>
+<ul>
+<li>all bones should be placed in the middle of the mesh</li>
+<li><code>upperarm_l tail</code> should be placed exactly at the elbow joint</li>
+<li><code>lowerarm_l tail</code> should be placed exactly at the wrist joint</li>
+<li><code>hand_l tail</code> should be placed at the root of the middle finger</li>
+</ul>
+<video controls width="700">
+  <source src="../img/leah/step09-left-arm.webm" type="video/webm">
+</video>
+
+<hr />
+<h2 id="10-fingers">10. Fingers</h2>
+<p>Skin the fingers right is tricky. Although, if you're careful enough, the result should be good.<br />
+Here are the guidelines for you:</p>
+<ul>
+<li>roll <code>hand_l</code> bone to find the correct <code>thumb to pinky</code> position</li>
+<li>drag roots of gingers, place them to match knuckles</li>
+<li>rotate the rest finger bones to find correct finger positions</li>
+<li>scale the bones to match finger phalanges</li>
+<li>make sure X axis of every bone except thumb looks the same way as the palm</li>
+</ul>
+<p>We are still using X-mirror and only dealing with the left hand.</p>
+<video controls width="700">
+  <source src="../img/leah/step10-fingers.webm" type="video/webm">
+</video>
+
+<hr />
+<h2 id="11-left-leg">11. Left leg</h2>
+<p>Now we're ready to proceed with legs.<br />
+The guidelines are:</p>
+<ul>
+<li><code>thigh_l root</code> should be already in a good position, so we don't touch it</li>
+<li><code>thigh_l tail</code> should be placed in the knee joint</li>
+<li><code>calf_l tail</code> should be placed at the ankle joint</li>
+<li><code>foot_l tail</code> should be placed at the beginning of the toes</li>
+<li><code>ball_l</code> should be aligned straight forward</li>
+</ul>
+<p>We're still using X-mirror and only adjust left leg bones.<br />
+In the process we're also using <a href="../../select-bone-group/#twist-bones">Select Bone Group: Twist Bones</a>
+to select all twist bones and move them into a different layer, so they don't obscure the view.</p>
+<video controls width="700">
+  <source src="../img/leah/step11-left-leg.webm" type="video/webm">
+</video>
+
+<hr />
+<h2 id="12-adjust-the-right-side">12. Adjust the right side</h2>
+<p>Ideally the mesh will by symmetrical along the X axis. However, the world is not ideal, so we
+should account for the differences between the left and right sides of the mesh.</p>
+<ol>
+<li>Turn OFF X-mirror</li>
+<li>Correct right arm, palm, fingers and leg</li>
+</ol>
+<video controls width="700">
+  <source src="../img/leah/step12-right-side.webm" type="video/webm">
+</video>
+
+<hr />
+<h2 id="13-apply-the-pose-as-rest-pose">13. Apply the pose as Rest Pose</h2>
+<p>We have the armature in the correct pose precisely following the mesh posture and proportions.<br />
+Now we need to apply all our changes to the armature by applying the pose as Rest Pose.</p>
+<video controls width="700">
+  <source src="../img/leah/step13-apply-pose.webm" type="video/webm">
+</video>
+
+<hr />
+<h2 id="14-parent-the-armature">14. Parent the armature</h2>
+<p>It is time to parent the mesh with the armature. Ideally you may like to amend the
+weight paints for the vertex groups, but for the brevity of this tutorial we will
+use auto-weights and leave it as is. This will give us good enough result for now.</p>
+<video controls width="700">
+  <source src="../img/leah/step14-parent.webm" type="video/webm">
+</video>
+
+<hr />
+<h2 id="15-t-pose">15. T-Pose</h2>
+<p>A requirement for the armature to be mannequin-compatible is correct bone rolls.<br />
+The Chiro add-on has built-in functionality to correct the rolls. However, to do so properly
+it needs the character to be in T-Pose. Thus, we will put our mesh into T-Pose now.</p>
+<p>Here are the guidelines</p>
+<ul>
+<li>Face: looking straight forward, head is aligned by Z axis</li>
+<li>Feet: looking straight forward, parallel to the floor</li>
+<li>Arms: aligned by X axis, parallel to the floor</li>
+<li>Upper arms: parallel to the floor</li>
+<li>Elbows: looking straight back (towards Y axis)</li>
+<li>Palms: parallel to the floor</li>
+</ul>
+<video controls width="700">
+  <source src="../img/leah/step15-tpose.webm" type="video/webm">
+</video>
+
+<hr />
+<h2 id="16-apply-the-pose-to-mesh">16. Apply the pose to mesh</h2>
+<p>Before we move on, we need to put the mesh into the new T pose at rest. To do so, we will use
+<a href="../../apply-pose-to-mesh/">Apply Pose to Mesh &amp; as Rest</a> feature. Without it, the mesh will
+keep its original form and not the T-Pose we've just made for it.</p>
+<p><code>Pose -&gt; Apply -&gt; Apply Pose to Mesh &amp; as Rest (Chiro)</code></p>
+<video controls width="700">
+  <source src="../img/leah/step16-apply-to-mesh.webm" type="video/webm">
+</video>
+
+<hr />
+<h2 id="165-optional-snap-clavicles">16.5. (Optional) Snap clavicles</h2>
+<p>This step is optional, because it may have different results depending on the character. Sometimes it may help
+with shoulders, sometimes it would make things worse. You should try both ways and choose the best option
+that suits your character anatomy.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>If you are skinning your character for the first time, we are recommending to skip this step
+and come back later to try this option if you find that your character shoulders aren't looking
+properly.<br />
+We also encourage you to save the progress you've made so far in a separate blend file, so
+you could come back to this step later and rework not from the very beginning, but from this step.</p>
+</div>
+<p>To do that we will use <a href="../../edit-armature/#snap-clavicles-to-mannequin-position">Snap clavicles to Mannequin position</a>
+transformation.</p>
+<p>Find and press in the menu:</p>
+<ul>
+<li><code>Armature -&gt; Chiro (UE4) -&gt; Mannequin --&gt; Snap clavicles to Mannequin position</code></li>
+</ul>
+<video controls width="700">
+  <source src="../img/leah/step165-snap-clavicles.webm" type="video/webm">
+</video>
+
+<hr />
+<h2 id="17-fix-bone-rolls">17. Fix bone rolls</h2>
+<p>Now we should be able to correct the bone rolls via the <a href="../../edit-armature/#bone-roll-t-pose">Bone Roll T-Pose</a> transformation.  </p>
+<ol>
+<li>Switch to <code>Edit Mode</code></li>
+<li><code>Armature -&gt; Chiro (UE4) -&gt; Mannequin --&gt; Bone Roll T-Pose</code></li>
+</ol>
+<video controls width="700">
+  <source src="../img/leah/step17-bone-reroll.webm" type="video/webm">
+</video>
+
+<hr />
+<h2 id="18-fix-feet-rotation">18. Fix feet rotation</h2>
+<p>The <a href="../../edit-armature/#bone-roll-t-pose">Bone Roll T-Pose</a> transformation will try to detect the best
+rotation. However, depending on the actual mesh pose, it will not be correct for some bones. Particularly,
+if the feet of the mesh don't look straight forward, the roll may be incorrect.</p>
+<p>Not a big problem. We can fix the rolls manually.
+To do that:</p>
+<ul>
+<li>Make sure X-Mirror is turned OFF</li>
+<li>fix the <strong>left foot</strong> roll so <strong>X axis</strong> looks <strong>down</strong></li>
+<li>fix the <strong>right foot</strong> roll so <strong>X axis</strong> looks <strong>up</strong></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If your mesh has asymmetry, X-mirror will dislocate the bones, this is why we turn it off</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>In this video, we're hiding the obstructive bones by selecting them and pressing <code>H</code> on keyboard.
+To unhide them later you can press <code>Alt+H</code>.</p>
+</div>
+<video controls width="700">
+  <source src="../img/leah/step18-fix-feet-rotation.webm" type="video/webm">
+</video>
+
+<hr />
+<h2 id="19-a-pose">19. A-Pose</h2>
+<p>The final step before it's ready for exporting. The add-on <a href="../../export-fbx/">Export FBX</a> operator
+relies on the armature to be in A-Pose to correct the bone rotations and make it compatible with
+the Mannequin armature. Thus, the last step before exporting is to pose it into A-Pose and apply
+it to the mesh. Similar to what we did with T-Pose before.</p>
+<ol>
+<li>Go to <code>Pose mode</code></li>
+<li>Find and press in menu <code>Pose -&gt; Re-Pose (Chiro UE4) -&gt; "Mannequin --&gt; A-Pose"</code></li>
+<li>Find and press in menu <code>Pose -&gt; Apply -&gt; Apply Pose to Mesh &amp; as Rest (Chiro)</code></li>
+</ol>
+<video controls width="700">
+  <source src="../img/leah/step19-apose.webm" type="video/webm">
+</video>
+
+<hr />
+<h2 id="20-export-fbx">20. Export FBX</h2>
+<p>Now it is ready for exporting to FBX. However, the add-on has its own <a href="../../export-fbx/">Export FBX</a> operator,
+that uses correct export settings and takes care about some extra stuff that you rarely want to do manually.
+For more details on the Export FBX operator, see its own documentation section.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Export FBX operator saves files into the same folder with your current .blend file </p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The export may take some time. Wait until the dropdown disappears from the screen.</p>
+</div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>If the proportions of your character are exactly the same as Mannequin (e.g. you did not update any bone scales,
+only rotations), you might import it with the Mannequin skeleton and reuse animations with no retargeting required.
+If the proportions are different, you will need retargeting.</p>
+</div>
+<ul>
+<li><code>File -&gt; Export -&gt; FBX (Chiro UE4 Mannequin) -&gt; Save as ***.fbx</code></li>
+</ul>
+<video controls width="700">
+  <source src="../img/leah/step20-export.webm" type="video/webm">
+  Step 10: Export to FBX
+</video>
+
+<hr />
+<h2 id="conclusion">Conclusion</h2>
+<p>The resulting FBX file is ready for use in Unreal Engine 4 with default import settings.<br />
+Although, most likely it will need animation retargeting in Unreal Engine 4.
+If you are not sure how to do that, read <a href="../ue4-retargeting/">HowTo: UE4 Retargeting</a>.</p>
+<h1 id="results">Results</h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>These results are not ideal, because we did not do manual weight painting and mesh correction.<br />
+The goal is to show you what the add-on is capable of, not to teach how to skin characters professionaly.</p>
+</div>
+<h3 id="third-person">Third person</h3>
+<video controls width="700">
+  <source src="../img/leah/the-result-1.webm" type="video/webm">
+  The result
+</video>
+
+<hr />
+<h3 id="advanced-locomotion-system-v4">Advanced Locomotion System v4</h3>
+<video controls width="700">
+  <source src="../img/leah/the-result-2.webm" type="video/webm">
+  The result
+</video>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../mixamo/" class="btn btn-neutral float-right" title="Mixamo Re-Skin">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../../installation/" class="btn btn-neutral" title="Installation"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../../installation/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../mixamo/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

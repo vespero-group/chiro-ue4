@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>UE4 Retargeting - Chiro (UE4 Mannequin)</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "UE4 Retargeting";
+    var mkdocs_page_input_path = "how-to/ue4-retargeting.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-174942804-1', 'vespero-group.github.io');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Chiro (UE4 Mannequin)</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Getting Started</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../getting-started/">Getting Started</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">How To</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../leah/">Skinning</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../mixamo/">Mixamo Re-Skin</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">UE4 Retargeting</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#intro">Intro</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#1-import-fbx">1. Import FBX</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2-select-rig-for-mannequin">2. Select Rig for Mannequin</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3-retarget-your-character">3. Retarget your character</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#4-retarget-the-animation-blueprint">4. Retarget the animation blueprint</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#5-use-your-character-and-animation-on-the-player-pawn">5. Use your character and animation on the player pawn</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Tools Overview</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../add-armature/">Add Armature</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../add-mesh/">Add Mesh</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../add-skeletal-mesh/">Add Skeletal Mesh</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../apply-pose-to-mesh/">Apply Pose to Mesh & as Rest</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../edit-armature/">Edit Armature</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../export-fbx/">Export FBX</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../re-pose/">Re-Pose</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../select-bone-group/">Select Bones</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Chiro (UE4 Mannequin)</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>How To &raquo;</li>
+        
+      
+    
+    <li>UE4 Retargeting</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="retarget-unreal-engine-4-mannequin-animation">Retarget Unreal Engine 4 Mannequin animation</h1>
+<p>This article explains how to retarget Mannequin-compatible animation for a Skeletal Mesh
+with Mannequin-compatible skeleton (armature).</p>
+<p>The entire process happens only in Unreal Engine 4 and implies you have done FBX export
+with a mannequin-compatible character (perhaps following another How-To).</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This article is not a part of the official Unreal Engine 4 documentation and may not be
+up to date with its latest features.</p>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#retarget-unreal-engine-4-mannequin-animation">Retarget Unreal Engine 4 Mannequin animation</a><ul>
+<li><a href="#intro">Intro</a></li>
+<li><a href="#1-import-fbx">1. Import FBX</a></li>
+<li><a href="#2-select-rig-for-mannequin">2. Select Rig for Mannequin</a></li>
+<li><a href="#3-retarget-your-character">3. Retarget your character</a></li>
+<li><a href="#4-retarget-the-animation-blueprint">4. Retarget the animation blueprint</a></li>
+<li><a href="#5-use-your-character-and-animation-on-the-player-pawn">5. Use your character and animation on the player pawn</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="intro">Intro</h2>
+<p>This article is an example of a retargeting procedure and does not contain
+the optimal retargeting settings. Every Skeletal Mesh is unique and may require different
+retargeting settings for achieving better results. Do not take the advice given here
+as the best possible for your project.</p>
+<h2 id="1-import-fbx">1. Import FBX</h2>
+<p>Create a separate folder for the character and import the FBX file with default settings.</p>
+<video controls width="700">
+  <source src="../img/ue4-retargeting/step1-import.webm" type="video/webm">
+  Step 1: Import FBX
+</video>
+
+<hr />
+<h2 id="2-select-rig-for-mannequin">2. Select Rig for Mannequin</h2>
+<p>We need the retargeting system to pick up Mannequin animation blueprints as a potential source of retargeting.
+For that, you may need to assign the humanoid rig to the Mannequin Skeleton.</p>
+<ol>
+<li>Find and Open the Mannequin Skeleton asset</li>
+<li>Open the Retarget Manager</li>
+<li>Select Humanoid Rig</li>
+<li>Save the Mannequin Skeleton</li>
+</ol>
+<video controls width="700">
+  <source src="../img/ue4-retargeting/step2-retarget-mannequin.webm" type="video/webm">
+  Step 2: Select Rig for Mannequin
+</video>
+
+<hr />
+<h2 id="3-retarget-your-character">3. Retarget your character</h2>
+<ol>
+<li>Find and Open your character skeleton asset</li>
+<li>Open the Retarget Manager</li>
+<li>Select Humanoid Rig</li>
+<li>Open Skeleton Tree</li>
+<li>Select "Show Retargeting Options" in the dropdown</li>
+<li>Recursively set Translation Retargeting Skeleton for all bones</li>
+<li>Set Translation Retargeting Animation for <strong>root</strong></li>
+<li>Set Translation Retargeting Animation Scaled for <strong>pelvis</strong></li>
+<li>Save the skeleton</li>
+</ol>
+<video controls width="700">
+  <source src="../img/ue4-retargeting/step3-retarget-leonard.webm" type="video/webm">
+  Step 3: Retarget your character
+</video>
+
+<hr />
+<h2 id="4-retarget-the-animation-blueprint">4. Retarget the animation blueprint</h2>
+<ol>
+<li>Find the animation blueprint you want to retarget</li>
+<li>Choose the correct retargeting options</li>
+<li>Retarget and save the resulting assets</li>
+</ol>
+<video controls width="700">
+  <source src="../img/ue4-retargeting/step4-retarget-animation.webm" type="video/webm">
+  Step 4: Retarget the animation blueprint
+</video>
+
+<hr />
+<h2 id="5-use-your-character-and-animation-on-the-player-pawn">5. Use your character and animation on the player pawn</h2>
+<ol>
+<li>Swap skeletal mesh with your character</li>
+<li>Choose your retargeted animation blueprint as the Anim Class</li>
+</ol>
+<video controls width="700">
+  <source src="../img/ue4-retargeting/step5-choose-leonard.webm" type="video/webm">
+  Step 5: Use your character and animation on the player pawn
+</video>
+
+<hr />
+<h2 id="conclusion">Conclusion</h2>
+<p>As the result, we can reuse the existing animation blueprints made for the Mannequin.  </p>
+<video controls width="700">
+  <source src="../img/ue4-retargeting/step6-the-result.webm" type="video/webm">
+  Step 6: The result
+</video>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../add-armature/" class="btn btn-neutral float-right" title="Add Armature">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../mixamo/" class="btn btn-neutral" title="Mixamo Re-Skin"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../mixamo/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../../add-armature/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
