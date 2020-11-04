@@ -32,7 +32,7 @@ jobs:
           git add --renormalize .
 
           mv ./addon/* .;
-          rm -rf README.md documentation addon;
+          rm -rf README.md addon;
 
           git add .
 
