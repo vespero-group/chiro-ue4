@@ -53,7 +53,10 @@ jobs:
         id: package-the-release
         run: |
           rm -rf .git .gitignore .gitattributes .github .flake8
-          zip -9 -r "chiro-ue4-${{ steps.version.outputs.version }}.zip" .
+          mkdir ../release
+          cp -r . ../release/chiro_ue4
+          cd ../release
+          zip -9 -r "chiro-ue4-${{ steps.version.outputs.version }}.zip" chiro_ue4
 
       - name: Upload the release
         id: upload-release-asset
@@ -62,6 +65,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: "${{ steps.create-release.outputs.upload_url }}"
-          asset_path: "./chiro-ue4-${{ steps.version.outputs.version }}.zip"
+          asset_path: "../release/chiro-ue4-${{ steps.version.outputs.version }}.zip"
           asset_name: "chiro-ue4-${{ steps.version.outputs.version }}.zip"
           asset_content_type: application/zip
