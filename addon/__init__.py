@@ -11,7 +11,7 @@ bl_info = {
     "name": "Chiro (UE4 Mannequin)",
     "description": "Skinning with Unreal Engine 4 Mannequin armature",
     "author": "Vespero Group (Serge)",
-    "version": (0, 1, 0),
+    "version": (0, 1, 1),
     "blender": (2, 80, 0),
     "wiki_url": "https://vespero-group.github.io/chiro-ue4",
     "tracker_url": "https://github.com/vespero-group/chiro-ue4",
