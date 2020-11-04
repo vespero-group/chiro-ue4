@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../../img/favicon.ico">
+  <title>Mixamo Re-Skin - Chiro UE4</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../../css/theme.css" />
+  <link rel="stylesheet" href="../../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Mixamo Re-Skin";
+    var mkdocs_page_input_path = "how-to/mixamo.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-174942804-1', 'vespero-group.github.io');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="../.." class="icon icon-home"> Chiro UE4</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Getting Started</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../getting-started/">Getting Started</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../installation/">Installation</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">How To</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../leah/">Skinning</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Mixamo Re-Skin</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#intro">Intro</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#1-get-the-character-in-t-pose">1. Get the character in T-Pose</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#2-convert-the-armature-to-mannequin-compatible">2. Convert the armature to Mannequin-compatible</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#3-connect-the-bones-with-children">3. Connect the bones with children</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#4-snap-clavicles-to-mannequin-position">4. Snap clavicles to Mannequin position</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#5-make-twist-bones">5. Make Twist bones</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#6-roll-the-bones">6. Roll the bones</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#7-fix-feet-rotation">7. Fix feet rotation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#8-fix-finger-rotation">8. Fix finger rotation</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#9-re-pose-the-mesh-to-the-mannequin-a-pose">9. Re-Pose the Mesh to the Mannequin A-Pose</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#10-export-fbx">10. Export FBX</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#conclusion">Conclusion</a>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../ue4-retargeting/">UE4 Retargeting</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Tools Overview</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../../add-armature/">Add Armature</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../add-mesh/">Add Mesh</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../add-skeletal-mesh/">Add Skeletal Mesh</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../apply-pose-to-mesh/">Apply Pose to Mesh & as Rest</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../edit-armature/">Edit Armature</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../export-fbx/">Export FBX</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../re-pose/">Re-Pose</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../../select-bone-group/">Select Bones</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../..">Chiro UE4</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>How To &raquo;</li>
+        
+      
+    
+    <li>Mixamo Re-Skin</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="re-skin-mixamo-for-unreal-engine-4-mannequin">Re-Skin Mixamo for Unreal Engine 4 Mannequin</h1>
+<p>The article explains how to swap a <a href="https://www.mixamo.com/">Miaxmo</a> armature with a Mannequin-compatible armature
+via <a href="../..">Chiro (UE4 Mannequin)</a> add-on for Blender.</p>
+<div class="toc">
+<ul>
+<li><a href="#re-skin-mixamo-for-unreal-engine-4-mannequin">Re-Skin Mixamo for Unreal Engine 4 Mannequin</a><ul>
+<li><a href="#intro">Intro</a></li>
+<li><a href="#1-get-the-character-in-t-pose">1. Get the character in T-Pose</a></li>
+<li><a href="#2-convert-the-armature-to-mannequin-compatible">2. Convert the armature to Mannequin-compatible</a></li>
+<li><a href="#3-connect-the-bones-with-children">3. Connect the bones with children</a></li>
+<li><a href="#4-snap-clavicles-to-mannequin-position">4. Snap clavicles to Mannequin position</a></li>
+<li><a href="#5-make-twist-bones">5. Make Twist bones</a></li>
+<li><a href="#6-roll-the-bones">6. Roll the bones</a></li>
+<li><a href="#7-fix-feet-rotation">7. Fix feet rotation</a></li>
+<li><a href="#8-fix-finger-rotation">8. Fix finger rotation</a></li>
+<li><a href="#9-re-pose-the-mesh-to-the-mannequin-a-pose">9. Re-Pose the Mesh to the Mannequin A-Pose</a></li>
+<li><a href="#10-export-fbx">10. Export FBX</a></li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="intro">Intro</h2>
+<p>Mixamo characters may have a variety of armatures. Some of them are more compatible with Mannequin than others.
+The process described in here will not work for every character you find out there, but should work for some of them.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Armatures prefixed with <code>mixamo9:</code> appear to be more compatible and easy to convert.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul>
+<li>Most likely your character<ul>
+<li>has proportions different to the Mannequin</li>
+<li>does not have twist bones and their weight painted vertex groups</li>
+</ul>
+</li>
+<li>Thus, do not expect<ul>
+<li>the character to work without later retargeting in Unreal Engine 4</li>
+<li>the retargeted animation to fit any character perfectly</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="1-get-the-character-in-t-pose">1. Get the character in T-Pose</h2>
+<p>The easiest way is to download the character in T-Pose.
+Otherwise, you may have to pose your character manually into the T-Pose before we proceed.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Make sure the character is placed at the origin (in the middle of the scene)</p>
+</div>
+<p><a href="../img/mixamo/step1-tpose.png"><img alt="Step1: T-Pose" src="../img/mixamo/step1-tpose.png" /></a></p>
+<hr />
+<h2 id="2-convert-the-armature-to-mannequin-compatible">2. Convert the armature to Mannequin-compatible</h2>
+<p>Now we will rename every bone of the armature into its Mannequin counterpart and also delete the redundant leaf bones.</p>
+<p>To do that, we will use <a href="../../edit-armature/#skeleton-conversion">Skeleton conversion</a> transformation.</p>
+<ol>
+<li>Select the Armature</li>
+<li>Go to <code>Edit mode</code></li>
+<li>Find and press in the menu <code>Armature -&gt; Chiro (UE4) -&gt; Mixamo --&gt; Skeleton conversion</code></li>
+</ol>
+<video controls width="700">
+  <source src="../img/mixamo/step2-convert.webm" type="video/webm">
+  Step 2: Skeleton conversion
+</video>
+
+<hr />
+<h2 id="3-connect-the-bones-with-children">3. Connect the bones with children</h2>
+<p>Some characters may have incorrect bone orientation.
+The easiest way to make sure all bones are positioned correctly (or at least similar to the Mannequin), is to connect
+the bone tails to children.</p>
+<p>To do that we will use <a href="../../edit-armature/#connect-the-bones-with-children">Connect the bones with children</a>
+transformation.</p>
+<p>Find and press in the menu:</p>
+<ul>
+<li><code>Armature -&gt; Chiro (UE4) -&gt; Mannequin --&gt; Connect the bones with children</code></li>
+</ul>
+<video controls width="700">
+  <source src="../img/mixamo/step3-connect-children.webm" type="video/webm">
+  Step 3: Connect the bones with children
+</video>
+
+<hr />
+<h2 id="4-snap-clavicles-to-mannequin-position">4. Snap clavicles to Mannequin position</h2>
+<p>Most likely your character T-Pose will have clavicle root positions aligned with the spine bone by the X axis.
+The Mannequin, however, has its clavicle roots displaced forward, which better replicates human anatomy.
+Later, when retargeting the Mannequin animation in Unreal Engine 4 for our character, this will make an effect of the
+shoulders stretched back too far, which looks like if scapulae are brought together. To reduce that effect, we can move the
+clavicle bone roots forward, similar to the original Mannequin armature.</p>
+<p>To do that we will use <a href="../../edit-armature/#snap-clavicles-to-mannequin-position">Snap clavicles to Mannequin position</a>
+transformation.</p>
+<p>Find and press in the menu:</p>
+<ul>
+<li><code>Armature -&gt; Chiro (UE4) -&gt; Mannequin --&gt; Snap clavicles to Mannequin position</code></li>
+</ul>
+<video controls width="700">
+  <source src="../img/mixamo/step4-snap-clavicles.webm" type="video/webm">
+  Step 4: Snap clavicles to Mannequin position
+</video>
+
+<hr />
+<h2 id="5-make-twist-bones">5. Make Twist bones</h2>
+<p>Most likely the character does not have the Mannequin Twist bones.
+Even though there are no
+<a href="https://docs.blender.org/manual/en/latest/modeling/meshes/properties/vertex_groups/index.html">Vertex groups</a>
+nor <a href="https://docs.blender.org/manual/en/latest/sculpt_paint/weight_paint/index.html">Weight paints</a>,
+we still need those Twist bones to exist so that Unreal Engine 4 can work with the skeleton when
+we retarget Mannequin animation. This is important for the engine that all the bones exist
+and precisely reproduce the original skeleton hierarchy.</p>
+<p>To do that we will use <a href="../../edit-armature/#make-twist-bones">Make twist bones</a> transformation.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This transformation generates the bones <strong>only</strong>. It does not generate any Vertex Groups
+with Weights. If you want your character to be more compatible with retargeted animation,
+you may need to manually Weight paint those Vertex Groups.</p>
+</div>
+<ul>
+<li><code>Armature -&gt; Chiro (UE4) -&gt; Mannequin --&gt; Make Twist bones</code></li>
+</ul>
+<video controls width="700">
+  <source src="../img/mixamo/step5-make-twist-bones.webm" type="video/webm">
+  Step 5: Make Twist bones
+</video>
+
+<hr />
+<h2 id="6-roll-the-bones">6. Roll the bones</h2>
+<p>The Mixamo characters have the bone heads and tails properly placed out of the box,
+same as the Weights for the Vertex Groups.
+However, an important difference with the Mannequin is the bones are rolled differently.
+Fret not, you don't have to re-roll every bone manually as long as your character is carefully
+posed in T-Pose. As long as it is the case, the add-on can detect proper
+rolls for every bone. Then you may correct the small bits manually if you'd like. Although, usually
+it will have "good enough" result without manual changes.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>It is important that the <strong>Mesh is in correct T-Pose</strong>:</p>
+<ul>
+<li>Face: looking straight forward, head is aligned by Z axis</li>
+<li>Feet: looking straight forward, parallel to the floor</li>
+<li>Arms: aligned by X axis, parallel to the floor</li>
+<li>Upper arms: parallel to the floor</li>
+<li>Elbows: looking straight back (towards Y axis)</li>
+<li>Palms: parallel to the floor</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Usually Mixamo in T-Pose will have the correct posture out of the box.</p>
+</div>
+<p>After we make sure the mesh is in the correct T-Pose, we may reroll the bones.</p>
+<p>To do that we will use <a href="../../edit-armature/#bone-roll-t-pose">Bone Roll T-Pose</a> transformation.</p>
+<ul>
+<li><code>Armature -&gt; Chiro (UE4) -&gt; Mannequin --&gt; Bone Roll T-Pose</code></li>
+</ul>
+<video controls width="700">
+  <source src="../img/mixamo/step6-bone-roll.webm" type="video/webm">
+  Step 6: Roll the bones
+</video>
+
+<hr />
+<h2 id="7-fix-feet-rotation">7. Fix feet rotation</h2>
+<p>The <a href="../../edit-armature/#bone-roll-t-pose">Bone Roll T-Pose</a> transformation will try to detect the best possible
+rotation. However, depending on the actual mesh pose, it will not be correct for some bones. Particularly,
+if the feet of the mesh don't look straight forward, then the roll will not be correct.</p>
+<p>Not a big problem. We can fix the rolls manually.
+To do that:</p>
+<ul>
+<li>turn on X-Mirror</li>
+<li>fix the <strong>left foot</strong> roll so <strong>X axis</strong> looks <strong>down</strong></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Right foot bone X-axis should look straight up, but with X-mirror that will be auto-corrected</p>
+</div>
+<video controls width="700">
+  <source src="../img/mixamo/step7-fix-feet-rotation.webm" type="video/webm">
+  Step 7: Fix feet rotation 
+</video>
+
+<hr />
+<h2 id="8-fix-finger-rotation">8. Fix finger rotation</h2>
+<p>Same as with feet, finger rolls may need manual update so every X axis of every finger bone
+(except thumb) looks straight down, following the palm direction.</p>
+<ul>
+<li>turn on X-Mirror</li>
+<li>fix the <strong>left arm</strong> fingers so that <strong>X axes</strong> look <strong>down</strong></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The palm should be looking down as well. This is X-axis of the <strong>hand_l</strong> bone</p>
+</div>
+<video controls width="700">
+  <source src="../img/mixamo/step8-fix-finger-rotation.webm" type="video/webm">
+  Step 8: Fix finger rotation 
+</video>
+
+<hr />
+<h2 id="9-re-pose-the-mesh-to-the-mannequin-a-pose">9. Re-Pose the Mesh to the Mannequin A-Pose</h2>
+<p>Before we can export the character to FBX, we have to re-pose it into Mannequin A-Pose.
+This is necessary so that add-on may transform the bone rotations later when exporting to FBX.
+We will omit the technical details here, but this is necessary for the character to get exported correctly.</p>
+<p>To do that</p>
+<ol>
+<li>Go to <code>Pose mode</code></li>
+<li>Find and press in menu <code>Pose -&gt; Re-Pose (Chiro UE4) -&gt; "Mannequin --&gt; A-Pose"</code></li>
+<li>Find and press in menu <code>Pose -&gt; Apply -&gt; Apply Pose to Mesh &amp; as Rest (Chiro)</code></li>
+</ol>
+<video controls width="700">
+  <source src="../img/mixamo/step9-apose-mesh.webm" type="video/webm">
+  Step 9: Re-Pose Mesh to Mannequin A-Pose
+</video>
+
+<hr />
+<h2 id="10-export-fbx">10. Export FBX</h2>
+<p>Now it is ready for exporting to FBX. However, the add-on has its own <a href="../../export-fbx/">Export FBX</a> operator,
+that uses correct export settings and takes care about some extra stuff that you usually don't want to do manually.
+For the details on the Export FBX operator, see its own documentation section.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Export FBX operator saves files into the same folder where your current .blend file resides</p>
+</div>
+<ul>
+<li><code>File -&gt; Export -&gt; FBX (Chiro UE4 Mannequin) -&gt; Save as ***.fbx</code></li>
+</ul>
+<video controls width="700">
+  <source src="../img/mixamo/step10-export-fbx.webm" type="video/webm">
+  Step 10: Export to FBX
+</video>
+
+<hr />
+<h2 id="conclusion">Conclusion</h2>
+<p>The resulting FBX file is ready for Unreal Engine 4 with default import settings.<br />
+Although, most likely your character will need animation retargeting in Unreal Engine 4.
+If you are not sure how to do that, see <a href="../ue4-retargeting/">HowTo: UE4 Retargeting</a>.</p>
+<p>Here is the result of what we have done in this article, with animation retargeting as per <a href="../ue4-retargeting/">HowTo: UE4 Retargeting</a>.</p>
+<video controls width="700">
+  <source src="../img/ue4-retargeting/step6-the-result.webm" type="video/webm">
+  The result
+</video>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../ue4-retargeting/" class="btn btn-neutral float-right" title="UE4 Retargeting">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../leah/" class="btn btn-neutral" title="Skinning"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../leah/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../ue4-retargeting/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="None">
+  
+  
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <title>Chiro UE4</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="css/theme.css" />
+  <link rel="stylesheet" href="css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Home";
+    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="js/jquery-2.1.1.min.js" defer></script>
+  <script src="js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-174942804-1', 'vespero-group.github.io');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="." class="icon icon-home"> Chiro UE4</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul class="current">
+                    <li class="toctree-l1 current"><a class="reference internal current" href=".">Home</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#who-is-it-for">Who is it for</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#why-we-need-it">Why we need it</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#what-it-gives-you">What it gives you</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#what-it-does-not-do">What it does not do</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#blender-compatibility">Blender compatibility</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#found-a-bug">Found a bug?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#need-help">Need help?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#want-to-help">Want to help?</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#good-luck">Good luck!</a>
+    </li>
+    </ul>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Getting Started</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="getting-started/">Getting Started</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="installation/">Installation</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">How To</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="how-to/leah/">Skinning</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="how-to/mixamo/">Mixamo Re-Skin</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="how-to/ue4-retargeting/">UE4 Retargeting</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Tools Overview</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="add-armature/">Add Armature</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="add-mesh/">Add Mesh</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="add-skeletal-mesh/">Add Skeletal Mesh</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="apply-pose-to-mesh/">Apply Pose to Mesh & as Rest</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="edit-armature/">Edit Armature</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="export-fbx/">Export FBX</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="re-pose/">Re-Pose</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="select-bone-group/">Select Bones</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href=".">Chiro UE4</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Home</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p><a href="."><img alt="Chiro UE4 Logo" src="img/logo.png" /></a></p>
+<h1 id="chiro-ue4">Chiro UE4</h1>
+<p>"Chiro UE4" is a <a href="https://www.blender.org/">Blender</a> add-on
+for <a href="https://docs.blender.org/manual/en/latest/animation/armatures/skinning/introduction.html">skinning</a>
+with Unreal Engine 4 Mannequin armature.</p>
+<hr />
+<p><a href=""><img alt="GNU GPL3" src="https://img.shields.io/badge/license-GPL3-blue.svg?style=for-the-badge&amp;logo=blender" /></a></p>
+<hr />
+<h2 id="who-is-it-for">Who is it for</h2>
+<ul>
+<li><strong>3D Artists</strong>, who want to skin their characters with the Mannequin skeleton</li>
+<li><strong>Indie Game Developers</strong>, who want an easy way to swap an armature of a mesh with the Mannequin skeleton</li>
+</ul>
+<h2 id="why-we-need-it">Why we need it</h2>
+<ul>
+<li>animation created for Mannequin may be reused</li>
+<li>blueprints created for Mannequin may be reused</li>
+<li>Mannequin skeleton may be reused</li>
+</ul>
+<h2 id="what-it-gives-you">What it gives you</h2>
+<ul>
+<li>Free software (as in freedom)</li>
+<li>Skinning with Mannequin compatible armatures</li>
+<li>FBX export made easy (with correct scale)</li>
+<li>Mixamo to Mannequin skeleton transformations automation</li>
+<li>A bunch of automations</li>
+</ul>
+<h2 id="what-it-does-not-do">What it does not do</h2>
+<p>The primary goal of this add-on is to make
+<a href="https://docs.blender.org/manual/en/latest/animation/armatures/skinning/introduction.html">Skinning</a> easy.
+If you need to animate your characters, you should consider using EpicGames Blender Tools for that (e.g. Unreal to Rigify).</p>
+<h2 id="blender-compatibility">Blender compatibility</h2>
+<p>Requires <strong>2.8x</strong> or <strong>2.9x</strong><br />
+Tested with <strong>2.83 LTS</strong> and <strong>2.90</strong></p>
+<h2 id="found-a-bug">Found a bug?</h2>
+<p>Create a new <a href="https://github.com/vespero-group/chiro-ue4/issues">GitHub Issue</a>.</p>
+<h2 id="need-help">Need help?</h2>
+<p>Raise a <a href="https://github.com/vespero-group/chiro-ue4/issues">GitHub issue</a> or try asking in the
+<a href="https://matrix.to/#/!pfBEGiBXAHTOGcAwwq:matrix.org?via=matrix.org">chiro-ue4:matrix.org</a> matrix channel.</p>
+<h2 id="want-to-help">Want to help?</h2>
+<p>We believe that artists should have access to free (as in freedom) and open-source software of high quality.<br />
+If you want to support our cause, you could</p>
+<ul>
+<li>Give us a star on <a href="https://github.com/vespero-group/chiro-ue4">GitHub</a></li>
+<li>Let us know how we could make it better via <a href="https://github.com/vespero-group/chiro-ue4/issues">GitHub Issues</a></li>
+<li>Tell others about the add-on and what it does</li>
+<li>Consider buying us coffee or donate via <a href="https://ko-fi.com/vesperogroup">Ko-fi</a></li>
+</ul>
+<h2 id="good-luck">Good luck!</h2>
+<p>We wish this project can serve you well, creative person. Go, make the world a little better!</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="getting-started/" class="btn btn-neutral float-right" title="Getting Started">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+      
+        <span style="margin-left: 15px"><a href="getting-started/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '.';</script>
+    <script src="js/theme.js" defer></script>
+      <script src="search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 1.1.2
+Build Date UTC : 2020-11-04 19:29:32.507966+00:00
+-->
