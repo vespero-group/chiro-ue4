@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  
+  
+  <link rel="shortcut icon" href="../img/favicon.ico">
+  <title>Edit Armature - Chiro UE4</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700" />
+
+  <link rel="stylesheet" href="../css/theme.css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" />
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Edit Armature";
+    var mkdocs_page_input_path = "edit-armature.md";
+    var mkdocs_page_url = null;
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js" defer></script>
+  <script src="../js/modernizr-2.8.3.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script> 
+  
+  <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-174942804-1', 'vespero-group.github.io');
+      ga('send', 'pageview');
+  </script>
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Chiro UE4</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Getting Started</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../getting-started/">Getting Started</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../installation/">Installation</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">How To</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../how-to/leah/">Skinning</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../how-to/mixamo/">Mixamo Re-Skin</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../how-to/ue4-retargeting/">UE4 Retargeting</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Tools Overview</span></p>
+                <ul class="current">
+                    <li class="toctree-l1"><a class="reference internal" href="../add-armature/">Add Armature</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../add-mesh/">Add Mesh</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../add-skeletal-mesh/">Add Skeletal Mesh</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../apply-pose-to-mesh/">Apply Pose to Mesh & as Rest</a>
+                    </li>
+                    <li class="toctree-l1 current"><a class="reference internal current" href="./">Edit Armature</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#transformations">Transformations</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#unknown-armature">Unknown armature</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mixamo-armature">Mixamo armature</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#skeleton-conversion">Skeleton conversion</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#mannequin-armature">Mannequin armature</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#connect-the-bones-with-children">Connect the bones with children</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#snap-clavicles-to-mannequin-position">Snap clavicles to Mannequin position</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#make-twist-bones">Make twist bones</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#bone-roll-t-pose">Bone Roll T-Pose</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#bone-roll-a-pose-advanced">Bone Roll A-Pose (Advanced)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#make-ik-bones-advanced">Make IK bones (Advanced)</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#chiropract-on-armature-advanced">Chiropract on Armature (Advanced)</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../export-fbx/">Export FBX</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../re-pose/">Re-Pose</a>
+                    </li>
+                    <li class="toctree-l1"><a class="reference internal" href="../select-bone-group/">Select Bones</a>
+                    </li>
+                </ul>
+                <p class="caption"><span class="caption-text">Releases</span></p>
+                <ul>
+                    <li class="toctree-l1"><a class="reference internal" href="../changelog/">Changelogs</a>
+                    </li>
+                </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Chiro UE4</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+        
+          <li>Tools Overview &raquo;</li>
+        
+      
+    
+    <li>Edit Armature</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h1 id="edit-armature">Edit Armature</h1>
+<p>Edit mode with an armature active</p>
+<h2 id="transformations">Transformations</h2>
+<p>The list of available transformations depend on the active armature.
+The addon reads the active armature structure and tries to detect a known model (e.g. Mannequin or Mixamo).</p>
+<h3 id="unknown-armature">Unknown armature</h3>
+<p>By default (for a single bone in this example), no transformations will be available (thus, empty menu).</p>
+<p>Edit mode -&gt; Armature -&gt; Chiro (UE4) -&gt; ...</p>
+<p><a href="../img/feature/edit-armature/empty/menu.png"><img alt="Edit armature empty Menu" src="../img/feature/edit-armature/empty/menu.png" /></a></p>
+<p><a href="../img/feature/edit-armature/empty/scene.png"><img alt="Edit armature empty" src="../img/feature/edit-armature/empty/scene.png" /></a></p>
+<hr />
+<h3 id="mixamo-armature">Mixamo armature</h3>
+<h4 id="skeleton-conversion">Skeleton conversion</h4>
+<p>Rename the bones to their Mannequin counterparts. Delete redundant leaf bones.</p>
+<p>Edit mode -&gt; Armature -&gt; Chiro (UE4) -&gt; "Mixamo --&gt; Skeleton conversion"</p>
+<p><a href="../img/feature/edit-armature/mixamo/skeleton-conversion-menu.png"><img alt="Edit Mixamo armature Skeleton Conversion Menu" src="../img/feature/edit-armature/mixamo/skeleton-conversion-menu.png" /></a></p>
+<p><a href="../img/feature/edit-armature/mixamo/skeleton-conversion-action.gif"><img alt="Edit Mixamo armature Skeleton Conversion Action" src="../img/feature/edit-armature/mixamo/skeleton-conversion-action.gif" /></a></p>
+<hr />
+<h3 id="mannequin-armature">Mannequin armature</h3>
+<h4 id="connect-the-bones-with-children">Connect the bones with children</h4>
+<p>Leaving the bone heads in place, connects the tails to the children where it makes sense, to follow the Mannequin skeleton structure.</p>
+<p>Edit mode -&gt; Armature -&gt; Chiro (UE4) -&gt; "Mannequin --&gt; Connect the bones with children"</p>
+<p><a href="../img/feature/edit-armature/mannequin/connect-the-bones-with-children-menu.png"><img alt="Edit Mannequin armature Connect the bones with children Menu" src="../img/feature/edit-armature/mannequin/connect-the-bones-with-children-menu.png" /></a></p>
+<p><a href="../img/feature/edit-armature/mannequin/connect-the-bones-with-children-action.gif"><img alt="Edit Mannequin armature Connect the bones with children Action" src="../img/feature/edit-armature/mannequin/connect-the-bones-with-children-action.gif" /></a></p>
+<hr />
+<h4 id="snap-clavicles-to-mannequin-position">Snap clavicles to Mannequin position</h4>
+<p>Moves clavicle heads to positions simiral to Mannequin, calculated relatively to "spine_03" bone.</p>
+<p>Edit mode -&gt; Armature -&gt; Chiro (UE4) -&gt; "Mannequin --&gt; Snap clavicles to Mannequin position"</p>
+<p><a href="../img/feature/edit-armature/mannequin/snap-clavicles-to-mannequin-position-menu.png"><img alt="Edit Mannequin armature Snap clavicles to Mannequin position Menu" src="../img/feature/edit-armature/mannequin/snap-clavicles-to-mannequin-position-menu.png" /></a></p>
+<p><a href="../img/feature/edit-armature/mannequin/snap-clavicles-to-mannequin-position-action.gif"><img alt="Edit Mannequin armature Snap clavicles to Mannequin position Action" src="../img/feature/edit-armature/mannequin/snap-clavicles-to-mannequin-position-action.gif" /></a></p>
+<hr />
+<h4 id="make-twist-bones">Make twist bones</h4>
+<p>Generates Mannequin twist bones. Calculates length and positions relatively to the parent bones.
+Does nothing for existing twist bones.</p>
+<p>Edit mode -&gt; Armature -&gt; Chiro (UE4) -&gt; "Mannequin --&gt; Make twist bones"</p>
+<p><a href="../img/feature/edit-armature/mannequin/make-twist-bones-menu.png"><img alt="Edit Mannequin armature Make twist bones Menu" src="../img/feature/edit-armature/mannequin/make-twist-bones-menu.png" /></a></p>
+<p><a href="../img/feature/edit-armature/mannequin/make-twist-bones-action.gif"><img alt="Edit Mannequin armature Make twist bones Action" src="../img/feature/edit-armature/mannequin/make-twist-bones-action.gif" /></a></p>
+<hr />
+<h4 id="bone-roll-t-pose">Bone Roll T-Pose</h4>
+<p>Corrects the bone rolls to follow the Mannequin armature composition.
+Assumes the Mesh is T-Pose.</p>
+<p><strong>WARNING</strong>: if your mesh is not in T-Pose, the rolls will not be correct</p>
+<p>Edit mode -&gt; Armature -&gt; Chiro (UE4) -&gt; "Mannequin --&gt; Bone Roll T-Pose"</p>
+<p><a href="../img/feature/edit-armature/mannequin/bone-roll-tpose-menu.png"><img alt="Edit Mannequin armature Make twist bones Menu" src="../img/feature/edit-armature/mannequin/bone-roll-tpose-menu.png" /></a></p>
+<p><a href="../img/feature/edit-armature/mannequin/bone-roll-tpose-action.gif"><img alt="Edit Mannequin armature Make twist bones Action" src="../img/feature/edit-armature/mannequin/bone-roll-tpose-action.gif" /></a></p>
+<hr />
+<h4 id="bone-roll-a-pose-advanced">Bone Roll A-Pose (Advanced)</h4>
+<p>Corrects the bone rolls to follow the Mannequin armature composition.
+Assumes the Mesh is Mannequin A-Pose.</p>
+<p><strong>WARNING</strong>: if your mesh is not in A-Pose, the rolls will not be correct</p>
+<hr />
+<h4 id="make-ik-bones-advanced">Make IK bones (Advanced)</h4>
+<p>Generates IK bones for the armature.</p>
+<p>Same as <a href="../add-armature/#mannequin-ik-bones-advanced">Add Armature -&gt; Mannequin IK Bones</a></p>
+<hr />
+<h4 id="chiropract-on-armature-advanced">Chiropract on Armature (Advanced)</h4>
+<p>Corrects the bone arrangement so that it follows The Original Mannequin armature.
+After this operation the character may be exported to FBX (with YX axis).</p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../export-fbx/" class="btn btn-neutral float-right" title="Export FBX">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../apply-pose-to-mesh/" class="btn btn-neutral" title="Apply Pose to Mesh & as Rest"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+        <span><a href="../apply-pose-to-mesh/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../export-fbx/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js" defer></script>
+      <script src="../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>
