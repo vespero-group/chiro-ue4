@@ -1,4 +1,5 @@
 import bpy
+import random
 
 from .operator_mixin import OperatorMixin
 from ..utils import context, mode, object, export_helper
@@ -31,9 +32,21 @@ class FbxExport(OperatorMixin):
     def _run(self):
         self._export_into(self.save_path)
 
+    def _select_meshes_recursive(self, obj, select):
+        for child in obj.children:
+            if child.type == 'EMPTY':
+                self._select_meshes_recursive(child, select)
+            else:
+                child.select_set(select)
+
     def _export_into(self, path):
-        with context.snapshot_then_rollback_ctx():
-            with mode.active_mode_ctx(mode.MODE_OBJECT):
+        with mode.active_mode_ctx(mode.MODE_OBJECT):
+            with context.active_object_ctx(context.get_object().name):
+                bpy.ops.object.select_hierarchy(direction='CHILD', extend=True)
+                bpy.ops.object.duplicate_move()
+                bpy.ops.object.select_hierarchy(direction='PARENT', extend=False)
+                renamedRootIndex = 0
+
                 with context.active_object_ctx(context.get_object().name):
                     with object.location_applied_ctx():
                         with object.rotation_applied_ctx():
@@ -42,18 +55,17 @@ class FbxExport(OperatorMixin):
                                 bpy.ops.chiro_ue4.op_transform(transform=data.transform.gen_option_key('mannequin', 'make-ik-bones'))
 
                             # select the child meshes
-                            [
-                                mesh.select_set(True)
-                                for mesh
-                                in context.get_active_object().children
-                            ]
+                            self._select_meshes_recursive(context.get_active_object(), True)
 
                             # select the armature
                             context.get_active_object().select_set(True)
 
                             if context.get_active_object().name != 'root':
+                                renamedRootIndex = 1 # default to 1
                                 if 'root' in bpy.data.objects:
-                                    bpy.data.objects['root'].name = 'root-renamed'
+                                    while 'root.' + str(renamedRootIndex).zfill(3) in bpy.data.objects:
+                                        renamedRootIndex += 1
+                                    bpy.data.objects['root'].name = 'root.' + str(renamedRootIndex).zfill(3)
                                 context.get_active_object().name = 'root'
 
                             with object.scale_applied_ctx(0.01):
@@ -75,3 +87,11 @@ class FbxExport(OperatorMixin):
                                     path_mode='COPY',
                                     embed_textures=True
                                 )
+
+                # select all children of duplicated armature, regardless if mesh
+                bpy.ops.object.select_hierarchy(direction='CHILD', extend=True) # TODO: fix offset
+
+                bpy.ops.object.delete(use_global=True, confirm=False)
+
+                if renamedRootIndex > 0:
+                    bpy.data.objects['root.' + str(renamedRootIndex).zfill(3)].name = 'root'
