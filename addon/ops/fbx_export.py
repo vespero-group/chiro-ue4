@@ -32,19 +32,23 @@ class FbxExport(OperatorMixin):
     def _run(self):
         self._export_into(self.save_path)
 
-    def _select_meshes_recursive(self, obj, select):
+    def _select_recursive(self, obj, select, select_everything):
         for child in obj.children:
             if child.type == 'EMPTY':
-                self._select_meshes_recursive(child, select)
+                if select_everything:
+                    child.select_set(select)
+                self._select_recursive(child, select, select_everything)
             else:
                 child.select_set(select)
 
     def _export_into(self, path):
         with mode.active_mode_ctx(mode.MODE_OBJECT):
             with context.active_object_ctx(context.get_object().name):
-                bpy.ops.object.select_hierarchy(direction='CHILD', extend=True)
+                obj = context.get_active_object()
+                self._select_recursive(context.get_active_object(), True, True)
                 bpy.ops.object.duplicate_move()
-                bpy.ops.object.select_hierarchy(direction='PARENT', extend=False)
+
+                self._select_recursive(context.get_active_object(), False, True)
                 renamedRootIndex = 0
 
                 with context.active_object_ctx(context.get_object().name):
@@ -55,7 +59,7 @@ class FbxExport(OperatorMixin):
                                 bpy.ops.chiro_ue4.op_transform(transform=data.transform.gen_option_key('mannequin', 'make-ik-bones'))
 
                             # select the child meshes
-                            self._select_meshes_recursive(context.get_active_object(), True)
+                            self._select_recursive(context.get_active_object(), True, False)
 
                             # select the armature
                             context.get_active_object().select_set(True)
@@ -89,7 +93,7 @@ class FbxExport(OperatorMixin):
                                 )
 
                 # select all children of duplicated armature, regardless if mesh
-                bpy.ops.object.select_hierarchy(direction='CHILD', extend=True) # TODO: fix offset
+                self._select_recursive(context.get_active_object(), True, True)
 
                 bpy.ops.object.delete(use_global=True, confirm=False)
 
