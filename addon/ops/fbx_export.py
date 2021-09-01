@@ -1,5 +1,4 @@
 import bpy
-import random
 
 from .operator_mixin import OperatorMixin
 from ..utils import context, mode, object, export_helper
