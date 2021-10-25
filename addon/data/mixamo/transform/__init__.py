@@ -18,7 +18,7 @@ def poll(ctx):
             return all((n in bones for n in HIPS.get_bone_names_recursively()))
         return False
 
-    if parts[0] in ['mixamorig', 'mixamorig9']:
+    if parts[0] in ['mixamorig', 'mixamorig1', 'mixamorig9']:
         return True
 
 
